@@ -24,7 +24,7 @@
 @foreach (var hotel in Model)
 {
     <li>
-        <strong>Name:</strong> @hotel.Name, <strong>Location:</strong> @hotel.Location
+            <strong>Name:</strong> <a href="/hotels/@hotel.Id">@hotel.Name</a>, <strong>Location:</strong> @hotel.Location, <strong>Year Built:</strong> @hotel.YearBuilt
     </li>
 }
 </ul>

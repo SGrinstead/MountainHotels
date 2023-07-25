@@ -26,10 +26,34 @@ namespace MountainHotels.Controllers
             return View(hotels);
         }
 
+        [Route("/hotels/{hotelId:int}")]
+        public IActionResult Show(int hotelId)
+        {
+            var hotel = _context.Hotels.Find(hotelId);
+            return View(hotel);
+        }
+
         // GET: /Hotels/New
         public IActionResult New()
         {
             return View();
+        }
+
+        [Route("/hotels/{hotelId:int}/edit")]
+        public IActionResult Edit(int hotelId)
+        {
+            var hotel = _context.Hotels.Find(hotelId);
+            return View(hotel);
+        }
+
+        [HttpPost]
+        [Route("/hotels/{hotelId:int}")]
+        public IActionResult Update(int hotelId, Hotel hotel)
+        {
+            hotel.Id = hotelId;
+            _context.Hotels.Update(hotel);
+            _context.SaveChanges();
+            return Redirect($"/hotels/{hotelId}");
         }
 
         // POST: /Hotels
