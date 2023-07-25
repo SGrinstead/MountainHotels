@@ -14,7 +14,7 @@ namespace MountainHotels.Controllers
         }
 
         // GET: /Hotels
-        public IActionResult Index(string? location)
+        public IActionResult Index(string? location, int? year)
         {
             var hotels = _context.Hotels.AsEnumerable();
             if(location != null)
@@ -22,7 +22,13 @@ namespace MountainHotels.Controllers
                 hotels = hotels.Where(h => h.Location == location);
                 ViewData["SearchLocation"] = location;
             }
+            if(year != null)
+            {
+                hotels = hotels.Where(h => h.YearBuilt == year);
+                ViewData["SearchYear"] = year;
+            }
             ViewData["AllLocations"] = _context.Hotels.Select(h => h.Location).Distinct().ToList();
+            ViewData["AllYears"] = _context.Hotels.Select(h => h.YearBuilt).Distinct().ToList();
             return View(hotels);
         }
 
